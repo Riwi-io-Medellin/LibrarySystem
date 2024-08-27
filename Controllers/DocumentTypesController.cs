@@ -1,5 +1,6 @@
 using LibrarySystem.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibrarySystem.Controllers;
 
@@ -17,10 +18,11 @@ public class DocumentTypesController : Controller
         _context = context;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        var allDocumentTypes = _context.DocumentTypes.ToList();
+        var allDocumentTypes = await _context.DocumentTypes.ToListAsync();
         return View(allDocumentTypes);
     }
+    
 
 }
