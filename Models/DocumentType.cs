@@ -15,11 +15,11 @@ public class DocumentType
     public required string Name { get; set; }
 
     [Column("abbreviation")]
-    [MinLength(2, ErrorMessage = "The Name field must be at least {1} characters.")]
-    [MaxLength(10, ErrorMessage = "The Name field must be at most {1} characters.")]
+    [MinLength(2, ErrorMessage = "The Abbreviation field must be at least {1} characters.")]
+    [MaxLength(10, ErrorMessage = "The Abbreviation field must be at most {1} characters.")]
     public required string Abbreviation { get; set; }
 
     [Column("description")]
-    [MaxLength(500, ErrorMessage = "The Name field must be at most {1} characters.")]
+    [MaxLength(10, ErrorMessage = "The Name field must be at most {1} characters.")]
     public string? Description { get; set; }
 }
