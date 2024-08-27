@@ -1,4 +1,5 @@
 using LibrarySystem.Data;
+using LibrarySystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +24,28 @@ public class DocumentTypesController : Controller
         var allDocumentTypes = await _context.DocumentTypes.ToListAsync();
         return View(allDocumentTypes);
     }
-    
+
+    [Route("create")]
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost("create")]
+    public async Task<IActionResult> Create(DocumentType documentType)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Add(documentType);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        else
+        {
+            _logger.LogError("Error saving");
+            return View(documentType);
+        }
+    }
+
 
 }
