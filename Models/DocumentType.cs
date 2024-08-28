@@ -20,6 +20,6 @@ public class DocumentType
     public required string Abbreviation { get; set; }
 
     [Column("description")]
-    [MaxLength(10, ErrorMessage = "The Name field must be at most {1} characters.")]
+    [MaxLength(300, ErrorMessage = "The Name field must be at most {1} characters.")]
     public string? Description { get; set; }
 }
