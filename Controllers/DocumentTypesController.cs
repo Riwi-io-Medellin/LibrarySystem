@@ -68,7 +68,7 @@ public class DocumentTypesController : Controller
         {
             _context.Update(documentType);
             await _context.SaveChangesAsync();
-             return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index));
         }
         else
         {
@@ -76,6 +76,20 @@ public class DocumentTypesController : Controller
             return View(documentType);
         }
     }
+
+
+    [Route("delete/{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var documentTypeFound = await _context.DocumentTypes.FindAsync(id);
+        if (documentTypeFound == null)
+        {
+            return View("");
+        }
+        return View(documentTypeFound);
+    }
+
+
 
     private bool CheckExist(int id)
     {
