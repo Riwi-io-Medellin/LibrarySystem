@@ -2,9 +2,13 @@
     <h1 class="display-4">Document Types</h1>
 </div>
 
-<p>
-    <a asp-controller="DocumentTypes" asp-action="Create" class="btn btn-primary">Create New Document Type</a>
-</p>
+<nav class="navbar bg-body-tertiary container-fluid">
+    <a asp-controller="DocumentTypes" asp-action="Create" class="btn btn-primary">Create</a>
+    <form asp-controller="DocumentTypes" asp-action="Find" method="get" class="d-flex" role="search">
+        <input class="form-control me-2" name="keywords" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+</nav>
 
 <table class="table">
     <thead>
@@ -50,21 +54,5 @@
                 </td>
             </tr>
         }
-
-
-
-        @* @foreach (var item in Model)
-        {
-        <tr>
-        <td>
-        @item.Name
-        </td>
-        <td>
-        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a>
-        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
-        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-        </td>
-        </tr>
-        } *@
     </tbody>
 </table>

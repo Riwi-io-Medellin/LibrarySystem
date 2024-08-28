@@ -2,6 +2,8 @@ using LibrarySystem.Data;
 using LibrarySystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 
 namespace LibrarySystem.Controllers;
 
@@ -23,6 +25,21 @@ public class DocumentTypesController : Controller
     {
         var allDocumentTypes = await _context.DocumentTypes.ToListAsync();
         return View(allDocumentTypes);
+    }
+
+    [Route("Find")]
+    public async Task<IActionResult> Find(string keywords)
+    {
+        if (string.IsNullOrWhiteSpace(keywords))
+        {
+            return RedirectToAction(nameof(Index));
+        }
+        var allDocumentTypes = await _context.DocumentTypes
+                                .Where(d => d.Name.Contains(keywords) ||
+                                            d.Abbreviation.Contains(keywords) ||
+                                            d.Description.Contains(keywords))
+                                .ToListAsync();
+        return View("Index", allDocumentTypes);
     }
 
     [Route("create")]
