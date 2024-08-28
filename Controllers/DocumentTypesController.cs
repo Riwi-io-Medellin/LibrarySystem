@@ -48,4 +48,46 @@ public class DocumentTypesController : Controller
     }
 
 
+    [Route("edit/{id}")]
+    public async Task<IActionResult> Edit(int id)
+    {
+        var documentTypeFound = await _context.DocumentTypes.FindAsync(id);
+        return View(documentTypeFound);
+    }
+
+    [HttpPost("edit/{id}")]
+    public async Task<IActionResult> Edit(int id, DocumentType documentType)
+    {
+        var result = CheckExist(id);
+        if (result == false)
+        {
+            return NotFound();
+        }
+
+        if (ModelState.IsValid)
+        {
+            _context.Update(documentType);
+            await _context.SaveChangesAsync();
+             return RedirectToAction(nameof(Index));
+        }
+        else
+        {
+            _logger.LogError("El modelo no es valido");
+            return View(documentType);
+        }
+    }
+
+    private bool CheckExist(int id)
+    {
+        var checkDocumentType = _context.DocumentTypes.Any(e => e.Id == id);
+        if (checkDocumentType == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }
